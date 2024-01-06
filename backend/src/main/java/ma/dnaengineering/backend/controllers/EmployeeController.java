@@ -3,7 +3,6 @@ package ma.dnaengineering.backend.controllers;
 
 import java.io.IOException;
 
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +12,7 @@ import ma.dnaengineering.backend.services.EmployeeService;
 import ma.dnaengineering.backend.exceptions.CsvProcessingException;
 import org.springframework.http.HttpStatus;
 import ma.dnaengineering.backend.dto.EmployeeUploadResponse;
-import org.json.JSONObject;
+import ma.dnaengineering.backend.dto.ErrorResponse;
 
 @RestController
 @RequestMapping("/api/employees")
@@ -39,9 +38,7 @@ public class EmployeeController {
     public ResponseEntity<?> handleCsvProcessingException(CsvProcessingException ex) {
         // Log err for debugging purposes
         // Logger.error("Error occurred while processing csv file: " + ex.getMessage());
-        JSONObject error = new JSONObject();
-        error.put("error", ex.getMessage());
-        return new ResponseEntity<>(error.toString(), HttpStatus.BAD_REQUEST);
+        ErrorResponse error = new ErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST.toString());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
-
 }

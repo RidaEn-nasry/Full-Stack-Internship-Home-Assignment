@@ -17,24 +17,24 @@ export default function Home() {
   const [averageSalaryByJobTitle, setAverageSalaryByJobTitle] = useState({});
 
 
-  const saveToLocalStorage = (key, value) => {
-    localStorage.setItem(key, JSON.stringify(value));
+  const saveToSessionStorage = (key, value) => {
+
+    sessionStorage.setItem(key, JSON.stringify(value));
   }
 
-  const getFromLocalStorage = (key) => {
-    const value = localStorage.getItem(key);
-    if (!value) return null;
-    console.log(value);
+  const getFromSessionStorage = (key) => {
 
-    return JSON.parse(value);
+    const value = sessionStorage.getItem(key);
+    if (value) return JSON.parse(value);
+    return null;
   }
 
 
 
   // a function to in-memory / local storage state
   const resetState = () => {
-    saveToLocalStorage('employees', []);
-    saveToLocalStorage('averageSalaryByJobTitle', {});
+    saveToSessionStorage('employees', []);
+    saveToSessionStorage('averageSalaryByJobTitle', {});
     setEmployees([]);
     setAverageSalaryByJobTitle({});
   }
@@ -58,9 +58,9 @@ export default function Home() {
 
   // if we have data in local storage, set it to state
   useEffect(() => {
-    const employees = getFromLocalStorage('employees');
-    const averageSalaryByJobTitle = getFromLocalStorage('averageSalaryByJobTitle');
-    const selectedFile = getFromLocalStorage('selectedFile');
+    const employees = getFromSessionStorage('employees');
+    const averageSalaryByJobTitle = getFromSessionStorage('averageSalaryByJobTitle');
+    const selectedFile = getFromSessionStorage('selectedFile');
     if (employees) setEmployees(employees);
     if (averageSalaryByJobTitle) setAverageSalaryByJobTitle(averageSalaryByJobTitle);
     setLoading(false);
@@ -91,8 +91,8 @@ export default function Home() {
         setEmployees(result['employees']);
         setAverageSalaryByJobTitle(result['averageSalaryByJobTitle']);
         // save to local storage
-        saveToLocalStorage('employees', result['employees']);
-        saveToLocalStorage('averageSalaryByJobTitle', result['averageSalaryByJobTitle']);
+        saveToSessionStorage('employees', result['employees']);
+        saveToSessionStorage('averageSalaryByJobTitle', result['averageSalaryByJobTitle']);
         setLoading(false);
 
       })

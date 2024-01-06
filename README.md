@@ -80,8 +80,8 @@ Respect the following design flow:
 
 ## Frotend 
 - **Custom Hook**: Used a custom `usePaginate` hook to paginate the employee data table, for modularity/reusability's sakes, and so that pagination logic can be used across components.
-- **Avoiding unnecessary API calls By Persisting Results in Local Storage**:
-Persisted the results in the browser's local storage until a new CSV file is uploaded, to one: prevent  data loss on page refresh and two : avoid unnecessary API calls for same CSV file.
+- **Avoiding unnecessary API calls By Persisting Results in Session Storage**:
+Persisted the results in the browser's session storage until a new CSV file is uploaded, to one: prevent  data loss on page refresh and two : avoid unnecessary API calls for same CSV file.
 
 
 

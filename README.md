@@ -94,6 +94,7 @@ Persisted the results in the browser's session storage until a new CSV file is u
 - To run tests, run `./mvnw test` in the root dir of the `backend` folder.
 
 ## Frontend
+- create a `.env.local` file in the `frontend` folder and add the following line to it `NEXT_PUBLIC_API_URL=http://localhost:8080/api`.
 - Run `npm install` then `npm run dev` in the `frontend` folder.
 
 

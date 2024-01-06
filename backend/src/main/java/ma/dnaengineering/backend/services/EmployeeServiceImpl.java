@@ -22,6 +22,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public ResponseEntity<EmployeeUploadResponse> uploadAndProcessCsvFile(MultipartFile file) {
+        if (file.isEmpty()) {
+            throw new CsvProcessingException("File is empty");
+        }
+        if (!file.getContentType().equals("text/csv")) {
+            throw new CsvProcessingException("File is not csv");
+        }
+
         List<Employee> employees = null;
         try {
             employees = csvParserService.parseCsv(file);

@@ -69,7 +69,9 @@ export default function Home() {
 
   const handleFileUpload = () => {
     if (!selectedFile) return;
-    const uploadEndpoint = `${process.env.NEXT_PUBLIC_API_URL}/employees/upload`;
+    const baseApiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080/api";
+    const uploadEndpoint = `${baseApiUrl}/employees/upload`;
+
     const formData = new FormData();
     formData.append('file', selectedFile);
     fetch(uploadEndpoint, {

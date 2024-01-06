@@ -24,12 +24,7 @@ public class EmployeeController {
     @PostMapping("/upload")
     public ResponseEntity<EmployeeUploadResponse> uploadAndProcessCsvFile(@RequestParam("file") MultipartFile file)
             throws IOException {
-        if (file.isEmpty()) {
-            throw new CsvProcessingException("File is empty");
-        }
-        if (!file.getContentType().equals("text/csv")) {
-            throw new CsvProcessingException("File is not csv");
-        }
+   
 
         return employeeService.uploadAndProcessCsvFile(file);
     }

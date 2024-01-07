@@ -69,24 +69,31 @@ Respect the following design flow:
 
 
 ## Backend
+
 - **Service Layer**: Implemented business logic in the `EmployeeServiceImpl` which consumes the `CsvParserService` to process uploaded CSV files returns list of employees and then calculate average salaries by job title.
 - **CSV Parsing**: `CsvParserServiceImpl` convert CSV data into `Employee` List and in case there's invalid CSV data it throws `CsvProcessingException` with a meaningful message.
 - **Controller**: Exposed a REST API endpoint in `EmployeeController` to upload and process the CSV file and to return the processed data.
 - **Exception Handling**: `CsvProcessingException`  is thrown in case, file is not csv, empty or contains invalid format.
 
+
+
 ## Tests
 
-- **Unit Tests**: Wrote unit tests for the service layer and the web layer, using JUnit and Mockito. by first testing the controller layer by focusing more on request/response behavior and input validation and less on the business logic (mocked the service layer). and then tested the business logic within the service classes by putting more emphasis on the CSV parsing and average salary calculations.
+- **Unit Tests**: Wrote unit tests for the service layer and the web layer and model layer, using JUnit and Mockito. by first testing the controller layer by focusing more on request/response behavior and input validation and less on the business logic (mocked the service layer). and then tested the business logic within the service classes by putting more emphasis on the CSV parsing and average salary calculations.
+
 
 ## Frotend 
-- **Custom Hook**: Used a custom `usePaginate` hook to paginate the employee data table, for modularity/reusability's sakes, and so that pagination logic can be used across components.
 - **Avoiding unnecessary API calls By Persisting Results in Session Storage**:
 Persisted the results in the browser's session storage until a new CSV file is uploaded, to one: prevent  data loss on page refresh and two : avoid unnecessary API calls for same CSV file.
 
 
 
-
 # Instructions to run the project
+
+
+## Database
+
+- Run `docker-compose up` in the root dir of project to bostrap a postgres database.
 
 
 ## Backend
@@ -96,6 +103,5 @@ Persisted the results in the browser's session storage until a new CSV file is u
 ## Frontend
 - create a `.env.local` file in the `frontend` folder and add the following line to it `NEXT_PUBLIC_API_URL=http://localhost:8080/api`.
 - Run `npm install` then `npm run dev` in the `frontend` folder.
-
 
 

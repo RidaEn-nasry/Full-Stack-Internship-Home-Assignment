@@ -2,22 +2,13 @@
 
 import React, { useState } from 'react';
 import Pagination from './Pagination';
-import usePaginate from '@/hooks/usePaginate';
 
 
-const EmployeeTable = ({ employees }) => {
 
-    const employeesPerPage = 10;
-    const { currentPage, paginate, pageNumbers } = usePaginate(employees.length, employeesPerPage);
-
-    // get slice of 10 employees we're currrently at
-    const currentEmployees = employees.slice(
-        (currentPage - 1) * employeesPerPage,
-        currentPage * employeesPerPage,
-    );
-
-
+const EmployeeTable = ({ employees, currentPage, totalPages, onNext, onPrev }) => {
     return (
+        //  if loading shows a skeleton loader
+
         <div className="flex flex-col items-center justify-center gap-4">
             <h1 className="text-4xl font-bold text-center">Employees</h1>
             <div className="overflow-x-auto">
@@ -31,7 +22,7 @@ const EmployeeTable = ({ employees }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {currentEmployees.map((employee) => (
+                        {employees.map((employee) => (
                             <tr key={employee.id} className="md:table-row">
                                 <td className="border px-4 py-2 min-w-max block md:table-cell">ID: {employee.id}</td>
                                 <td className="border px-4 py-2 min-w-max block md:table-cell">Name: {employee.employeeName}</td>
@@ -43,30 +34,14 @@ const EmployeeTable = ({ employees }) => {
                 </table>
             </div>
             <Pagination
-                paginate={paginate}
                 currentPage={currentPage}
-                pageNumbers={pageNumbers}
-
+                totalPages={totalPages}
+                onNext={onNext}
+                onPrev={onPrev}
             />
-
-        </div >
-    )
-
-}
+        </div>
+    );
+};
 
 export default EmployeeTable;
 
-export async function getServerSideProps() {
-    const res = await fetch('http://localhost:3000/api/employees')
-    const employees = await res.json()
-
-    return {
-        props: {
-            employees,
-        },
-    }
-}
-
-// export async function getStaticProps() {
-
-//     const res = await fetch('http://localhost:3000/api/employees')

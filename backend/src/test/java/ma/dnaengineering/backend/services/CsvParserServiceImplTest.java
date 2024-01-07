@@ -7,8 +7,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-import ma.dnaengineering.backend.services.CsvParserServiceImpl;
 import org.springframework.web.multipart.MultipartFile;
+
+import ma.dnaengineering.backend.exceptions.CsvProcessingException;
 import ma.dnaengineering.backend.models.Employee;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -43,7 +44,7 @@ public class CsvParserServiceImplTest {
     @Test
     public void shouldThrowExceptionWhenParsingInvalidCsv() throws IOException {
         when(file.getInputStream()).thenReturn(mockInputStreamWithInvalidCsv());
-        assertThrows(NumberFormatException.class, () -> {
+        assertThrows(CsvProcessingException.class, () -> {
             csvParserService.parseCsv(file);
         });
     }

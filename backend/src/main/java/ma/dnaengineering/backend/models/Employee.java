@@ -1,5 +1,8 @@
 package ma.dnaengineering.backend.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +16,11 @@ import lombok.EqualsAndHashCode;
 @Getter
 @ToString
 @EqualsAndHashCode
+@Entity
+@Table(name = "employees")
 public class Employee {
+
+    @Id
     private Long id;
     private String employeeName;
     private String jobTitle;
@@ -25,3 +32,4 @@ public class Employee {
         this.salary = salary;
     }
 }
+
